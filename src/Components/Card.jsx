@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
 import starIcon from "../assets/star.png";
 
-function Card() {
+function Card({title, description, price, discount, rating, stock, thumbnail, }) {
   return (
-    <div className="w-5/12 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-5/12 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
+    md:w-1/5
+    lg:w-2/12
+    ">
       <Link to="/">
         <img
           className="pb-2 rounded-t-lg"
-          src="https://www.autocar.co.uk/sites/autocar.co.uk/files/images/car-reviews/first-drives/legacy/mercedes-benz-glc-coupe-driving-front-3_4.jpg"
+          src={thumbnail}
           alt="product image"
         />
       </Link>
       <div className="px-2 pb-5">
         <Link to="/">
           <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-            Apple Watch Series 7 GPS,
+            {title}
             {/* Aluminium Case, Starlight Sport */}
           </h5>
           {/* <p className="text-gray-900 dark:text-white py-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo dolor exercitationem rem suscipit eius corporis odio quo minima. Earum, commodi?</p> */}
@@ -86,12 +89,12 @@ function Card() {
           <img src={starIcon} alt="starIcon" className="h-4"/>
             </div>
           <span className="bg-blue-100 w-30 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-1">
-            3.7 / 5.0
+            {rating} / 5.0
           </span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-normal font-bold text-gray-900 dark:text-white">
-            $599
+            ${price}
           </span>
           <Link
             to="/"
