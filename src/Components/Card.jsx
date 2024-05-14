@@ -20,7 +20,9 @@ function Card({title, description, price, discount, rating, stock, thumbnail, })
             {title}
             {/* Aluminium Case, Starlight Sport */}
           </h5>
-          {/* <p className="text-gray-900 dark:text-white py-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo dolor exercitationem rem suscipit eius corporis odio quo minima. Earum, commodi?</p> */}
+          <p className="text-gray-900 dark:text-white py-4">
+            {description}
+          </p>
         </Link>
         {/* <div className="flex items-center mt-2 mb-2">
           <div className="flex items-center space-x-1 rtl:space-x-reverse">
@@ -96,9 +98,12 @@ function Card({title, description, price, discount, rating, stock, thumbnail, })
           <span className="text-normal font-bold text-gray-900 dark:text-white">
             ${price}
           </span>
-          <Link
+          <span className="px-3 py-0.5 font-bold text-blue-800">{discount} % off</span>
+        </div>
+        <div className="flex my-4">
+        <Link
             to="/"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-7 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-7 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Add
           </Link>

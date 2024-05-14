@@ -43,7 +43,7 @@ function Homepage() {
               title={product.title}
               description={product.description}
               price={product.price}
-              discount={product.discount}
+              discount={product.discountPercentage}
               rating={product.rating}
               stock={product.stock}
               thumbnail={product.thumbnail}
