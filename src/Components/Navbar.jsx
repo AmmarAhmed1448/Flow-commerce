@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import SearchbarWithDropdown from "./SearchbarWithDropdown";
 
 export default function Navbar() {
+  const subLinks = ["Home", "Company", "Team", "Features", "Pricing", "Contact Us", "Blog", "Careers", "FAQ", "Support", "Services", "Portfolio", "Testimonials", "Events"];
+
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -52,7 +54,18 @@ export default function Navbar() {
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
           <div className="flex items-center justify-center">
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-              <li>
+              {subLinks.map((link, index) => (
+                <li key={index}>
+                <Link
+                  to="/"
+                  className="text-gray-900 dark:text-white hover:underline"
+                  aria-current="page"
+                >
+                  {link}
+                </Link>
+              </li>
+              ))}
+              {/* <li>
                 <Link
                   to="/"
                   className="text-gray-900 dark:text-white hover:underline"
@@ -84,7 +97,7 @@ export default function Navbar() {
                 >
                   Features
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
