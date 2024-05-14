@@ -5,7 +5,7 @@ import Navbar from "../Components/Navbar";
 
 function Homepage() {
   const [products, setProducts] = useState([]);
-  const [isLoading, setisLoading] = useState(true);     
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
     function getAllProducts() {
@@ -20,15 +20,27 @@ function Homepage() {
           console.log(data.products);
           setProducts(data.products);
         })
-        .catch(error => {
-            console.log(error.message);
+        .catch((error) => {
+          console.log(error.message);
         })
         .finally(() => {
-            setisLoading(false);
-        })
+          setisLoading(false);
+        });
     }
     getAllProducts();
   }, []);
+
+  const groupedProducts = products.reduce((acc, product) => {
+    const { category } = product;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(product);
+    return acc;
+  }, {});
+
+  console.log(groupedProducts);
+
   return (
     <>
       <Navbar />
@@ -36,18 +48,31 @@ function Homepage() {
       {isLoading ? (
         <div className="text-xl font-medium">Loading products...</div>
       ) : (
-        <div className="flex justify-center items-start flex-wrap gap-4 py-8">
-          {products.map((product) => (
-            <Card
-              key={product.id}
-              title={product.title}
-              description={product.description}
-              price={product.price}
-              discount={product.discountPercentage}
-              rating={product.rating}
-              stock={product.stock}
-              thumbnail={product.thumbnail}
-            />
+        <div>
+          {Object.entries(groupedProducts).map(([category, prod]) => (
+            <div key={category} className="">
+              <h1 className="text-2xl h-12 my-8 font-bold flex items-center bg-gray-50 text-blue-800
+              px-8
+              md:px-20
+              ">
+                {category}
+              </h1>
+
+              <div className="flex justify-center items-start flex-wrap gap-4">
+                {prod.map((product) => (
+                  <Card
+                    key={product.id}
+                    title={product.title}
+                    description={product.description}
+                    price={product.price}
+                    discount={product.discountPercentage}
+                    rating={product.rating}
+                    stock={product.stock}
+                    thumbnail={product.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       )}
