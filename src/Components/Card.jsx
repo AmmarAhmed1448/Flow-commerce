@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import starIcon from "../assets/star.png";
 
 function Card({title, description, price, discount, rating, stock, thumbnail, }) {
+  description = description.trim();
+  // description = description.substring(0, 61)
   return (
     <div className="w-5/12 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
     md:w-1/5
@@ -9,19 +11,22 @@ function Card({title, description, price, discount, rating, stock, thumbnail, })
     ">
       <Link to="/">
         <img
-          className="pb-2 rounded-t-lg"
+          className="pb-2 rounded-t-lg object-contain h-32 mx-auto"
           src={thumbnail}
           alt="product image"
         />
       </Link>
       <div className="px-2 pb-5">
         <Link to="/">
-          <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="text-sm pb-2 font-semibold text-gray-900 dark:text-white">
             {title}
             {/* Aluminium Case, Starlight Sport */}
           </h5>
-          <p className="text-gray-900 dark:text-white py-4">
-            {description}
+          <p className="text-sm text-gray-900 dark:text-white py-
+          md:text-normal  
+          ">
+            {description.length <= 60 ? description : description.substring(0, 60) + "..."}
+
           </p>
         </Link>
         {/* <div className="flex items-center mt-2 mb-2">
@@ -95,10 +100,10 @@ function Card({title, description, price, discount, rating, stock, thumbnail, })
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-normal font-bold text-gray-900 dark:text-white">
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">
             ${price}
           </span>
-          <span className="px-3 py-0.5 font-bold text-blue-800">{discount} % off</span>
+          <span className="px-2 py-0.5 font-semibold text-sm text-blue-800">{discount} % off</span>
         </div>
         <div className="flex my-4">
         <Link

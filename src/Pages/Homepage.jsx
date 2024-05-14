@@ -36,7 +36,7 @@ function Homepage() {
       {isLoading ? (
         <div className="text-xl font-medium">Loading products...</div>
       ) : (
-        <div className="flex justify-center flex-wrap gap-4 py-8">
+        <div className="flex justify-center items-start flex-wrap gap-4 py-8">
           {products.map((product) => (
             <Card
               key={product.id}
