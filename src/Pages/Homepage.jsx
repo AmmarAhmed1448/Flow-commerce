@@ -16,7 +16,7 @@ function Homepage() {
 
   // const {categoryName} = useParams();
 
-const {selectedCategory} = useContext(SelectedCategoryContext);
+const {setCategoryList, selectedCategory} = useContext(SelectedCategoryContext);
 
   // const url = categoryName ? `https://dummyjson.com/products/category/${categoryName}`: "https://dummyjson.com/products"
   
@@ -44,7 +44,6 @@ const {selectedCategory} = useContext(SelectedCategoryContext);
     getAllProducts();
   }, []);
 
-  
   const filteredProducts = selectedCategory
   ? products.filter((product) => product.category === selectedCategory)
   : products;
@@ -58,6 +57,10 @@ const groupedProducts = filteredProducts.reduce((acc, product) => {
   return acc;
 }, {});
 
+useEffect(() => {
+  setCategoryList(Object.keys(groupedProducts));
+  console.log(Object.keys(groupedProducts));
+},[products])
     
 
   // const filteredProducts = selectedCategory

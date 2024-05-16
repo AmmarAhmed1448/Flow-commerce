@@ -16,7 +16,7 @@ function Dropdown() {
     
     
     const groupedProducts = useContext(GroupedProductsContext);
-    const {selectedCategory, setSelectedCategory} = useContext(SelectedCategoryContext);
+    const {categoryList ,setSelectedCategory} = useContext(SelectedCategoryContext);
 
 //   useEffect(() => {
 //     const getCategories = () => {
@@ -87,7 +87,7 @@ function Dropdown() {
         >
           <div className="py-1" role="none">
             {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
-            {Object.keys(groupedProducts).map((item, index) => (
+            {categoryList.map((item, index) => (
               <Link
                 key={index}
                 to='/'
