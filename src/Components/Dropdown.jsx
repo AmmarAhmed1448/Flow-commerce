@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GroupedProductsContext from "../Contexts/GroupedProductsContext";
+import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 
 
 function Dropdown() {
@@ -15,6 +16,7 @@ function Dropdown() {
     
     
     const groupedProducts = useContext(GroupedProductsContext);
+    const {selectedCategory, setSelectedCategory} = useContext(SelectedCategoryContext);
 
 //   useEffect(() => {
 //     const getCategories = () => {
@@ -88,11 +90,12 @@ function Dropdown() {
             {Object.keys(groupedProducts).map((item, index) => (
               <Link
                 key={index}
-                to={`/category/${item}`}
+                to='/'
                 className="text-gray-700 block px-4 py-2 text-sm"
                 role="menuitem"
                 tabIndex="-1"
                 id="menu-item-0"
+                onClick={() => {setSelectedCategory(item)}}
               >
                 {item}
               </Link>

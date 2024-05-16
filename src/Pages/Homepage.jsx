@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+
 
 import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
 import GroupedProductsContext from "../Contexts/GroupedProductsContext";
+import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 // import LeftDrawer from "../Components/LeftDrawer";
 // import Carousel from '../Components/Carousel';
 
 function Homepage() {
   const [products, setProducts] = useState([]);
+  const [filteredproducts, setFilteredProducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
-  const {categoryName} = useParams();
+  // const {categoryName} = useParams();
 
-  const url = categoryName ? `https://dummyjson.com/products/category/${categoryName}`: "https://dummyjson.com/products"
+const {selectedCategory} = useContext(SelectedCategoryContext);
+
+  // const url = categoryName ? `https://dummyjson.com/products/category/${categoryName}`: "https://dummyjson.com/products"
   
   useEffect(() => {
     function getAllProducts() {
-      // fetch("https://dummyjson.com/products")
-      fetch(url)
+      fetch("https://dummyjson.com/products")
+      // fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch products");
@@ -39,15 +44,25 @@ function Homepage() {
     getAllProducts();
   }, []);
 
-  const groupedProducts = products.reduce((acc, product) => {
-    const { category } = product;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(product);
-    return acc;
-  }, {});
+  
+  const filteredProducts = selectedCategory
+  ? products.filter((product) => product.category === selectedCategory)
+  : products;
 
+const groupedProducts = filteredProducts.reduce((acc, product) => {
+  const { category } = product;
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(product);
+  return acc;
+}, {});
+
+    
+
+  // const filteredProducts = selectedCategory
+  //   ? products.filter((product) => product.category === selectedCategory)
+  //   : products;
   console.log(groupedProducts);
 
   return (
