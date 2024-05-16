@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
+import GroupedProductsContext from "../Contexts/GroupedProductsContext";
+// import LeftDrawer from "../Components/LeftDrawer";
 // import Carousel from '../Components/Carousel';
 
 function Homepage() {
   const [products, setProducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
+  const {categoryName} = useParams();
+
+  const url = categoryName ? `https://dummyjson.com/products/category/${categoryName}`: "https://dummyjson.com/products"
+  
   useEffect(() => {
     function getAllProducts() {
-      fetch("https://dummyjson.com/products")
+      // fetch("https://dummyjson.com/products")
+      fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch products");
@@ -42,8 +51,9 @@ function Homepage() {
   console.log(groupedProducts);
 
   return (
-    <>
+    <GroupedProductsContext.Provider value={groupedProducts}>
       <Navbar />
+      {/* <LeftDrawer /> */}
       {/* <Carousel /> */}
       {isLoading ? (
         <div className="text-xl font-medium">Loading products...</div>
@@ -76,7 +86,7 @@ function Homepage() {
           ))}
         </div>
       )}
-    </>
+    </GroupedProductsContext.Provider>
   );
 }
 export default Homepage;

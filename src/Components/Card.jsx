@@ -19,13 +19,13 @@ function Card({title, description, price, discount, rating, stock, thumbnail, })
       <div className="px-2 pb-5">
         <Link to="/">
           <h5 className="text-sm pb-2 font-semibold text-gray-900 dark:text-white">
-            {title}
+          {title.length <= 25 ? title : title.substring(0, 25) + "..."}
             {/* Aluminium Case, Starlight Sport */}
           </h5>
           <p className="text-sm text-gray-900 dark:text-white py-
           md:text-normal  
           ">
-            {description.length <= 60 ? description : description.substring(0, 60) + "..."}
+            {description.length <= 50 ? description : description.substring(0, 50) + "..."}
 
           </p>
         </Link>

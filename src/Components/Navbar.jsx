@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchbarWithDropdown from "./SearchbarWithDropdown";
+import Dropdown from "./Dropdown";
 
 export default function Navbar() {
   const subLinks = ["Home", "Company", "Team", "Features", "Pricing", "Contact Us", "Blog", "Careers", "FAQ", "Support", "Services", "Portfolio", "Testimonials", "Events"];
@@ -52,7 +53,8 @@ export default function Navbar() {
 
       <nav className="bg-gray-50 dark:bg-gray-700">
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-8">
+            <Dropdown />
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               {subLinks.map((link, index) => (
                 <li key={index}>
