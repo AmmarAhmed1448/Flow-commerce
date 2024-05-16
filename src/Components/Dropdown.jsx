@@ -88,9 +88,9 @@ function Dropdown() {
           <div className="py-1" role="none">
             {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
             {categoryList.map((item, index) => (
-              <Link
+              <button
                 key={index}
-                to='/'
+                // to='/'
                 className="text-gray-700 block px-4 py-2 text-sm"
                 role="menuitem"
                 tabIndex="-1"
@@ -98,7 +98,7 @@ function Dropdown() {
                 onClick={() => {setSelectedCategory(item)}}
               >
                 {item}
-              </Link>
+              </button>
             ))}
             {/* <Link
               to="/"
