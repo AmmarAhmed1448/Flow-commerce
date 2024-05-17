@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SearchbarWithDropdown from "./SearchbarWithDropdown";
+import SearchbarWithDropdown from "./Searchbar";
 import Dropdown from "./Dropdown";
 
 export default function Navbar() {

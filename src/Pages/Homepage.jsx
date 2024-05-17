@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 
-
 import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
 import GroupedProductsContext from "../Contexts/GroupedProductsContext";
@@ -11,19 +10,20 @@ import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 
 function Homepage() {
   const [products, setProducts] = useState([]);
-  const [filteredproducts, setFilteredProducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
   // const {categoryName} = useParams();
 
-const {setCategoryList, selectedCategory} = useContext(SelectedCategoryContext);
+  const { setCategoryList, selectedCategory, query } = useContext(
+    SelectedCategoryContext
+  );
 
   // const url = categoryName ? `https://dummyjson.com/products/category/${categoryName}`: "https://dummyjson.com/products"
-  
+
   useEffect(() => {
     function getAllProducts() {
       fetch("https://dummyjson.com/products")
-      // fetch(url)
+        // fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch products");
@@ -45,23 +45,34 @@ const {setCategoryList, selectedCategory} = useContext(SelectedCategoryContext);
   }, []);
 
   const filteredProducts = selectedCategory
-  ? products.filter((product) => product.category === selectedCategory)
-  : products;
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
 
-const groupedProducts = filteredProducts.reduce((acc, product) => {
-  const { category } = product;
-  if (!acc[category]) {
-    acc[category] = [];
-  }
-  acc[category].push(product);
-  return acc;
-}, {});
 
-useEffect(() => {
-  setCategoryList(Object.keys(groupedProducts));
-  console.log(Object.keys(groupedProducts));
-},[products])
-    
+    const filterBySearch = products.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.brand.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase())
+      )       
+    });
+
+
+
+  const groupedProducts = filterBySearch.reduce((acc, product) => {
+    const { category } = product;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(product);
+    return acc;
+  }, {});
+
+  useEffect(() => {
+    setCategoryList(Object.keys(groupedProducts));
+    console.log(Object.keys(groupedProducts));
+  }, [products]);
 
   // const filteredProducts = selectedCategory
   //   ? products.filter((product) => product.category === selectedCategory)
@@ -79,10 +90,12 @@ useEffect(() => {
         <div>
           {Object.entries(groupedProducts).map(([category, prod]) => (
             <div key={category} className="">
-              <h1 className="text-2xl h-12 my-8 font-bold flex items-center bg-gray-50 text-blue-800
+              <h1
+                className="text-2xl h-12 my-8 font-bold flex items-center bg-gray-50 text-blue-800
               px-8
               md:px-20
-              ">
+              "
+              >
                 {category}
               </h1>
 
