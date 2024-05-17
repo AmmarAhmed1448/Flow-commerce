@@ -11,6 +11,7 @@ import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 function Homepage() {
   const [products, setProducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
+  const [groupedProducts, setGroupedProducts] = useState({});
 
   // const {categoryName} = useParams();
 
@@ -44,30 +45,62 @@ function Homepage() {
     getAllProducts();
   }, []);
 
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  // const filteredProducts = selectedCategory
+  //   ? products.filter((product) => product.category === selectedCategory)
+  //   : products;
 
+  // const filterBySearch = products.filter((item) => {
+  //   return (
+  //     item.title.toLowerCase().includes(query.toLowerCase()) ||
+  //     item.brand.toLowerCase().includes(query.toLowerCase()) ||
+  //     item.description.toLowerCase().includes(query.toLowerCase()) ||
+  //     item.category.toLowerCase().includes(query.toLowerCase())
+  //   );
+  // });
 
-    const filterBySearch = products.filter((item) => {
-      return (
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.brand.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase())
-      )       
-    });
+  const groupProducts = (products) => {
+    return products.reduce((acc, products) => {
+      const category = products.category;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(products);
+      return acc;
+    }, {});
+  };
 
+  useEffect(() => {
+    const filterProducts = () => {
+      let filtered = products;
+  
+      //* Filter by query 
+      if (query) {
+        filtered = filtered.filter((items) => {
+          return [items.title, items.brand, items.category, items.title, items.description].some(
+            (field) => field.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+      }
+  
+      //* Filter by category
+      else if(selectedCategory){
+        filtered = filtered.filter((items) => items.category === selectedCategory)
+      }
+  
+      return filtered;
+    };
+  
+    setGroupedProducts(groupProducts(filterProducts()));
+  }, [products, query, selectedCategory]);
 
-
-  const groupedProducts = filterBySearch.reduce((acc, product) => {
-    const { category } = product;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(product);
-    return acc;
-  }, {});
+  // const groupedProducts = filterBySearch.reduce((acc, product) => {
+  //   const { category } = product;
+  //   if (!acc[category]) {
+  //     acc[category] = [];
+  //   }
+  //   acc[category].push(product);
+  //   return acc;
+  // }, {});
 
   useEffect(() => {
     setCategoryList(Object.keys(groupedProducts));
