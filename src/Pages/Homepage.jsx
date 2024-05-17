@@ -15,7 +15,7 @@ function Homepage() {
 
   // const {categoryName} = useParams();
 
-  const { setCategoryList, selectedCategory, query } = useContext(
+  const { setCategoryList, selectedCategory, setSelectedCategory, query, setQuery } = useContext(
     SelectedCategoryContext
   );
 
@@ -92,6 +92,12 @@ function Homepage() {
   
     setGroupedProducts(groupProducts(filterProducts()));
   }, [products, query, selectedCategory]);
+
+
+  useEffect(() => {
+    setQuery("");
+  }, [selectedCategory])
+
 
   // const groupedProducts = filterBySearch.reduce((acc, product) => {
   //   const { category } = product;

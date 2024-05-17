@@ -110,27 +110,32 @@
 
 // export default SearchbarWithDropdown;
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 
 const SearchBar = () => {
 
   const {query, setQuery} = useContext(SelectedCategoryContext)
-  const handleClick = (e) => {
-    e.preventDefault();
-    setQuery(e.target.value);
-    console.log(query);
-  }
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = () => {
+    setQuery(searchValue.trim());
+  };
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+  
   return (
     <div className="relative w-full py-3  md:w-8/12">
       <input
         type="text"
         placeholder="Search..."
         className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-400"
-        onChange={handleClick}
+        onChange={handleChange}
       />
       <button className="absolute inset-y-3 right-0 px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
-      onChange={handleClick}
+      onClick={handleSearch}
       >
         Search
       </button>
