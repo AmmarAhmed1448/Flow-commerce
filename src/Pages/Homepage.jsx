@@ -58,6 +58,7 @@ function Homepage() {
   //   );
   // });
 
+  //* returns a new object where products are grouped by their category
   const groupProducts = (products) => {
     return products.reduce((acc, products) => {
       const category = products.category;
@@ -72,14 +73,19 @@ function Homepage() {
   useEffect(() => {
     const filterProducts = () => {
       let filtered = products;
-  
+      
+      
       //* Filter by query 
       if (query) {
+        console.log("query-------",query);
+        console.log("filteredsfdsfs-------",filtered);
         filtered = filtered.filter((items) => {
-          return [items.title, items.brand, items.category, items.title, items.description].some(
-            (field) => field.toLowerCase().includes(query.toLowerCase())
+          console.log(`${items.title} ### ${items.brand} ### ${items.category} ### ${items.description}`)
+          return [items.title, items.brand, items.category, items.description].some(
+            field => field && field.toLowerCase().includes(query.toLowerCase())
           );
         });
+        console.log("filtered2-------",filtered);
       }
   
       //* Filter by category

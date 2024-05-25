@@ -120,6 +120,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     setQuery(searchValue.trim());
+    console.log("search box query", query)
   };
 
   const handleChange = (event) => {
