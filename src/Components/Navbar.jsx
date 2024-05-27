@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import SearchbarWithDropdown from "./Searchbar";
 import Dropdown from "./Dropdown";
+import RightDrawer from "./RightDrawer";
 
 export default function Navbar() {
-  const subLinks = ["Home", "Company", "Team", "Features", "Pricing", "Contact Us", "Blog", "Careers", "FAQ", "Support", "Services", "Portfolio", "Testimonials", "Events"];
+  const subLinks = ["Home"] 
+  // "Company", "Team", "Features", "Pricing", "Contact Us", "Blog", "Careers", "FAQ", "Support", "Services", "Portfolio", "Testimonials", "Events"];
 
   return (
     <>
@@ -31,6 +33,7 @@ export default function Navbar() {
             Login
           </Link>
 
+          <RightDrawer/>
 
           {/* <div className="flex items-center space-x-6 rtl:space-x-reverse">
 
