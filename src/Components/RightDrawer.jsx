@@ -2,56 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import cart from "../assets/cart.png";
 import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
+
 function RightDrawer() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { cartItems, setCartItems } = useContext(SelectedCategoryContext);
-  //   const [cartItems, setCartItems] = useState([
-  //     {
-  //       id: 1,
-  //       name: "Apple iPhone 15, 256GB, Gold",
-  //       price: 1797,
-  //       quantity: 2,
-  //       image: "/path/to/iphone.png",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Xbox Series X, 1TB, Limited",
-  //       price: 599,
-  //       quantity: 1,
-  //       image: "/path/to/xbox.png",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Sony PlayStation 5, 2 controllers",
-  //       price: 799,
-  //       quantity: 1,
-  //       image: "/path/to/ps5.png",
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "Sony PlayStation 5, 2 controllers",
-  //       price: 799,
-  //       quantity: 1,
-  //       image: "/path/to/ps5.png",
-  //     },
-  //     {
-  //       id: 5,
-  //       name: "Sony PlayStation 5, 2 controllers",
-  //       price: 799,
-  //       quantity: 1,
-  //       image: "/path/to/ps5.png",
-  //     },
-  //     {
-  //       id: 6,
-  //       name: "Sony PlayStation 5, 2 controllers",
-  //       price: 799,
-  //       quantity: 1,
-  //       image: "/path/to/ps5.png",
-  //     },
-  //     // Add more products as needed
-  //   ]);
 
-  console.log("cartItems-----", cartItems);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
@@ -144,7 +99,7 @@ function RightDrawer() {
           >
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
           </svg>
-          Right drawer
+          Your Cart
         </h5>
         <button
           type="button"
@@ -180,58 +135,72 @@ function RightDrawer() {
               <span className="text-5xl">${getTotalAmount().toFixed(2)}</span>
             </span>
             <button
-              className="text-white bg-blue-700 my-4 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-52 lg:w-auto"
-              onClick={() => alert("Proceeding to checkout")}
+              className={`text-white bg-blue-700 my-4 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-52 lg:w-auto ${
+                cartItems.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={() => {
+                if (cartItems.length > 0) {
+                  alert("Proceeding to checkout");
+                  // Add your checkout logic here
+                }
+              }}
+              disabled={cartItems.length === 0}
             >
               Proceed to Checkout
             </button>
           </div>
 
-          <div className="grid gap-4">
-            {cartItems.map((item, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600"
-              >
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  className="w-16 h-16 object-cover mr-4"
-                />
-                <div className="flex-1">
-                  <h5 className="font-medium text-gray-900 dark:text-white">
-                    {item.title}
-                  </h5>
-                  <div className="flex items-center mt-2">
+          {cartItems.length === 0 ? (
+            <div className="text-3xl mt-16 py-8 px-4 bg-red-100 text-gray-500 dark:text-gray-400">
+              Your cart is empty
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {cartItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600"
+                >
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover mr-4"
+                  />
+                  <div className="flex-1">
+                    <h5 className="font-medium text-gray-900 dark:text-white">
+                      {item.title}
+                    </h5>
+                    <div className="flex items-center mt-2">
+                      <button
+                        className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
+                        onClick={() => decrementQuantity(item.title)}
+                      >
+                        -
+                      </button>
+                      <span className="px-4">{item.quantity}</span>
+                      <button
+                        className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
+                        onClick={() => incrementQuantity(item.title)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
                     <button
-                      className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
-                      onClick={() => decrementQuantity(item.title)}
+                      className="text-red-500 hover:text-red-700 mt-2"
+                      onClick={() => removeItem(item.title)}
                     >
-                      -
-                    </button>
-                    <span className="px-4">{item.quantity}</span>
-                    <button
-                      className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
-                      onClick={() => incrementQuantity(item.title)}
-                    >
-                      +
+                      Remove
                     </button>
                   </div>
                 </div>
-                <div className="flex flex-col items-end">
-                  <span className="font-medium text-gray-900 dark:text-white">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </span>
-                  <button
-                    className="text-red-500 hover:text-red-700 mt-2"
-                    onClick={() => removeItem(item.title)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
