@@ -1,79 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import cart from "../assets/cart.png";
-
+import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
 function RightDrawer() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Apple iPhone 15, 256GB, Gold",
-      price: 1797,
-      quantity: 2,
-      image: "/path/to/iphone.png",
-    },
-    {
-      id: 2,
-      name: "Xbox Series X, 1TB, Limited",
-      price: 599,
-      quantity: 1,
-      image: "/path/to/xbox.png",
-    },
-    {
-      id: 3,
-      name: "Sony PlayStation 5, 2 controllers",
-      price: 799,
-      quantity: 1,
-      image: "/path/to/ps5.png",
-    },
-    {
-      id: 4,
-      name: "Sony PlayStation 5, 2 controllers",
-      price: 799,
-      quantity: 1,
-      image: "/path/to/ps5.png",
-    },
-    {
-      id: 5,
-      name: "Sony PlayStation 5, 2 controllers",
-      price: 799,
-      quantity: 1,
-      image: "/path/to/ps5.png",
-    },
-    {
-      id: 6,
-      name: "Sony PlayStation 5, 2 controllers",
-      price: 799,
-      quantity: 1,
-      image: "/path/to/ps5.png",
-    },
-    // Add more products as needed
-  ]);
+  const { cartItems, setCartItems } = useContext(SelectedCategoryContext);
+  //   const [cartItems, setCartItems] = useState([
+  //     {
+  //       id: 1,
+  //       name: "Apple iPhone 15, 256GB, Gold",
+  //       price: 1797,
+  //       quantity: 2,
+  //       image: "/path/to/iphone.png",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Xbox Series X, 1TB, Limited",
+  //       price: 599,
+  //       quantity: 1,
+  //       image: "/path/to/xbox.png",
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Sony PlayStation 5, 2 controllers",
+  //       price: 799,
+  //       quantity: 1,
+  //       image: "/path/to/ps5.png",
+  //     },
+  //     {
+  //       id: 4,
+  //       name: "Sony PlayStation 5, 2 controllers",
+  //       price: 799,
+  //       quantity: 1,
+  //       image: "/path/to/ps5.png",
+  //     },
+  //     {
+  //       id: 5,
+  //       name: "Sony PlayStation 5, 2 controllers",
+  //       price: 799,
+  //       quantity: 1,
+  //       image: "/path/to/ps5.png",
+  //     },
+  //     {
+  //       id: 6,
+  //       name: "Sony PlayStation 5, 2 controllers",
+  //       price: 799,
+  //       quantity: 1,
+  //       image: "/path/to/ps5.png",
+  //     },
+  //     // Add more products as needed
+  //   ]);
 
+  console.log("cartItems-----", cartItems);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
-  const incrementQuantity = (id) => {
+  const incrementQuantity = (title) => {
     setCartItems(
       cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.title === title ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
 
-  const decrementQuantity = (id) => {
+  const decrementQuantity = (title) => {
     setCartItems(
       cartItems.map((item) =>
-        item.id === id && item.quantity > 1
+        item.title === title && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
     );
   };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  const removeItem = (title) => {
+    setCartItems(cartItems.filter((item) => item.title !== title));
   };
 
   const getTotalAmount = () => {
@@ -169,8 +171,10 @@ function RightDrawer() {
         </button>
 
         <div className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-          <div className="flex flex-col justify-end items-between bg-blue-100 py-12 px-6 rounded-xl flex-wrap mb-4
-          lg:flex-row lg:justify-between lg:items-end">
+          <div
+            className="flex flex-col justify-end items-between bg-blue-100 py-12 px-6 rounded-xl flex-wrap mb-4
+          lg:flex-row lg:justify-between lg:items-end"
+          >
             <span className="flex flex-col my-4">
               Total Amount:
               <span className="text-5xl">${getTotalAmount().toFixed(2)}</span>
@@ -184,31 +188,31 @@ function RightDrawer() {
           </div>
 
           <div className="grid gap-4">
-            {cartItems.map((item) => (
+            {cartItems.map((item, index) => (
               <div
-                key={item.id}
+                key={index}
                 className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-600"
               >
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item.thumbnail}
+                  alt={item.title}
                   className="w-16 h-16 object-cover mr-4"
                 />
                 <div className="flex-1">
                   <h5 className="font-medium text-gray-900 dark:text-white">
-                    {item.name}
+                    {item.title}
                   </h5>
                   <div className="flex items-center mt-2">
                     <button
                       className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
-                      onClick={() => decrementQuantity(item.id)}
+                      onClick={() => decrementQuantity(item.title)}
                     >
                       -
                     </button>
                     <span className="px-4">{item.quantity}</span>
                     <button
                       className="px-2 py-1 bg-gray-200 rounded dark:bg-gray-700"
-                      onClick={() => incrementQuantity(item.id)}
+                      onClick={() => incrementQuantity(item.title)}
                     >
                       +
                     </button>
@@ -220,7 +224,7 @@ function RightDrawer() {
                   </span>
                   <button
                     className="text-red-500 hover:text-red-700 mt-2"
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item.title)}
                   >
                     Remove
                   </button>

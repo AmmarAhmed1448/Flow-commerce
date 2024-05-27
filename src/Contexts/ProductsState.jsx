@@ -5,6 +5,7 @@ function ProductState({ children }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryList, setCategoryList] = useState([]);
   const [query, setQuery] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   const value = {
     selectedCategory,
@@ -12,7 +13,9 @@ function ProductState({ children }) {
     categoryList,
     setCategoryList,
     query, 
-    setQuery
+    setQuery,
+    cartItems,
+    setCartItems
   };
   return (
     <SelectedCategoryContext.Provider value={value}>
