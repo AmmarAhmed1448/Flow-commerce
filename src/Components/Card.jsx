@@ -36,9 +36,8 @@ function Card({
   }
   return (
     <div
-      className="w-5/12 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
-    md:w-1/5
-    lg:w-2/12
+      className=" col-span-6 md:col-span-3 xl:col-span-2  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
+   
     "
     >
       <Link to="/">

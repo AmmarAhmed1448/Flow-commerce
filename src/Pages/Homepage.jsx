@@ -144,7 +144,7 @@ function Homepage() {
                 {category}
               </h1>
 
-              <div className="flex justify-center items-start flex-wrap gap-4">
+              <div className="grid grid-cols-12 gap-3 mx-4">
                 {prod.map((product) => (
                   <Card
                     key={product.id}

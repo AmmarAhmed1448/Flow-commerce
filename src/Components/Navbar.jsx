@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SearchbarWithDropdown from "./Searchbar";
 import Dropdown from "./Dropdown";
 import RightDrawer from "./RightDrawer";
+import LeftDrawer from "./LeftDrawer";
 
 export default function Navbar() {
   const subLinks = ["Home"] 
@@ -9,8 +10,12 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+      <nav className="bg-gray-50 border-gray-200 dark:bg-gray-900">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl py-4">
+          
+          <div className="">
+            <LeftDrawer />
+          </div>
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -26,7 +31,7 @@ export default function Navbar() {
           </Link>
 
 
-          <div className="w-full md:w-8/12 hidden md:block">
+          <div className="w-full md:w-6/12 lg:w-9/12 hidden md:block">
           <SearchbarWithDropdown />
           </div>
 
@@ -70,9 +75,9 @@ export default function Navbar() {
 
       <nav className="bg-gray-50 dark:bg-gray-700">
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
-          <div className="flex items-center justify-center gap-8">
+          <div className="flex items-center  gap-8">
             <Dropdown />
-            <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+            {/* <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               {subLinks.map((link, index) => (
                 <li key={index}>
                 <Link
@@ -117,7 +122,7 @@ export default function Navbar() {
                   Features
                 </Link>
               </li> */}
-            </ul>
+            {/* </ul> */} 
           </div>
         </div>
       </nav>
