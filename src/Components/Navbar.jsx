@@ -20,20 +20,34 @@ export default function Navbar() {
               className="h-8"
               alt="Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center  text-2xl font-semibold whitespace-nowrap dark:text-white">
               Ammar
             </span>
           </Link>
 
+
+          <div className="w-full md:w-8/12 hidden md:block">
           <SearchbarWithDropdown />
+          </div>
+
+          
+          <div className="flex  items-center gap-x-4">
           <Link
             to="/"
-            className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
-          >
+            className="text-md text-blue-600 dark:text-blue-500 hover:underline"
+            >
             Login
           </Link>
 
           <RightDrawer/>
+          </div>
+
+          <div className="w-full md:w-8/12 sm:hidden block mt-4">
+          <SearchbarWithDropdown />
+          </div>
+          
+
+            
 
           {/* <div className="flex items-center space-x-6 rtl:space-x-reverse">
 

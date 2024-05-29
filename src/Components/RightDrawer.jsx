@@ -60,9 +60,9 @@ function RightDrawer() {
 
   return (
     <>
-      <div className="text-center">
+      <div className="m-center">
         <Link
-          className="px-5 py-2.5 mb-2"
+          className=""
           onClick={toggleDrawer}
           aria-controls="drawer-right-example"
           aria-expanded={isDrawerOpen}

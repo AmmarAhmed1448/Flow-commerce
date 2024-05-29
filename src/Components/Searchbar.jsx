@@ -118,7 +118,7 @@ const SearchBar = () => {
   const {query, setQuery} = useContext(SelectedCategoryContext)
   const [searchValue, setSearchValue] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = () => {  
     setQuery(searchValue.trim());
     console.log("search box query", query)
   };
@@ -128,7 +128,7 @@ const SearchBar = () => {
   };
   
   return (
-    <div className="relative w-full py-3  md:w-8/12">
+    <div className="relative w-full py-3">
       <input
         type="text"
         placeholder="Search..."
