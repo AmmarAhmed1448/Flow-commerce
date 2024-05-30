@@ -9,7 +9,7 @@ function App() {
     <ProductState>
     <Router>
       <Routes>
-      <Route exact path="/category/:categoryName" element={<Homepage />} />
+      {/* <Route exact path="/category/:categoryName" element={<Homepage />} /> */}
       <Route exact path="/" element={<Homepage />} />
       </Routes>
     </Router>
