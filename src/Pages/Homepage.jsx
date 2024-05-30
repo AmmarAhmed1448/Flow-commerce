@@ -5,7 +5,7 @@ import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
 import GroupedProductsContext from "../Contexts/GroupedProductsContext";
 import SelectedCategoryContext from "../Contexts/SelectedCategoryContext";
-// import LeftDrawer from "../Components/LeftDrawer";
+import LeftDrawer from "../Components/LeftDrawer";
 // import Carousel from '../Components/Carousel';
 
 function Homepage() {
@@ -144,7 +144,7 @@ function Homepage() {
                 {category}
               </h1>
 
-              <div className="grid grid-cols-12 gap-3 mx-4">
+              <div className="grid grid-cols-12 gap-3 md:gap-4 mx-2 md:mx-4">
                 {prod.map((product) => (
                   <Card
                     key={product.id}

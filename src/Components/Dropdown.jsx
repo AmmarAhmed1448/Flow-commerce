@@ -16,7 +16,7 @@ function Dropdown() {
     
     
     const groupedProducts = useContext(GroupedProductsContext);
-    const {categoryList ,setSelectedCategory} = useContext(SelectedCategoryContext);
+    const {categoryList, setSelectedCategory, selectedCategory} = useContext(SelectedCategoryContext);
 
 //   useEffect(() => {
 //     const getCategories = () => {
@@ -50,7 +50,7 @@ function Dropdown() {
           aria-expanded="true"
           aria-haspopup="true"
         >
-          Categories
+          {selectedCategory ? selectedCategory : "Categories"}
           <svg
             className="-mr-1 h-5 w-5 text-gray-400"
             viewBox="0 0 20 20"
@@ -78,7 +78,7 @@ function Dropdown() {
   --> */}
       {isOpen && (
         <div
-          className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-56 overflow-y-auto"
+          className="absolute left-0 z-10 mt-2 w-32 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-56 overflow-y-auto"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -87,6 +87,15 @@ function Dropdown() {
         >
           <div className="py-1" role="none">
             {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
+            <button
+              className="text-gray-700 block px-4 py-2 text-sm font-semibold"
+              role="menuitem"
+              tabIndex="-1"
+              id="menu-item-deselect"
+              onClick={() => { setSelectedCategory(""); }}
+            >
+              Deselect
+            </button>
             {categoryList.map((item, index) => (
               <button
                 key={index}

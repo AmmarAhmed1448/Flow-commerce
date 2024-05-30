@@ -5,12 +5,12 @@ import RightDrawer from "./RightDrawer";
 import LeftDrawer from "./LeftDrawer";
 
 export default function Navbar() {
-  const subLinks = ["Home"] 
+  // const subLinks = ["Home"] 
   // "Company", "Team", "Features", "Pricing", "Contact Us", "Blog", "Careers", "FAQ", "Support", "Services", "Portfolio", "Testimonials", "Events"];
 
   return (
     <>
-      <nav className="bg-gray-50 border-gray-200 dark:bg-gray-900">
+      <nav className="bg-gray-50 border-gray-200 dark:bg-gray-900 px-5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl py-4">
           
           <div className="">
